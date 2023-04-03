@@ -153,4 +153,6 @@ class MaterialViewModel @Inject constructor(
         suplidor  = ""
         precioUd = ""
     }
+
+    /*precioUd= uiState.value.material!!.precioUd*/
 }
