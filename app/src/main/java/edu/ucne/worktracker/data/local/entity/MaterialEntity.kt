@@ -11,7 +11,7 @@ class MaterialEntity(
     val duenoObra: String,
     val fecha: DatePicker,
     val descripcion: String,
-    val catidad: Int?,
+    val cantidad: Int?,
     val cantRetirada: Int?,
     val suplidor: String,
     val precioUd: Double?
