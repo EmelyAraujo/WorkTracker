@@ -150,6 +150,7 @@ class MaterialViewModel @Inject constructor(
         descripcion = ""
         cantidad = ""
         cantRetirada = ""
+        suplidor  = ""
         precioUd = ""
     }
 }
