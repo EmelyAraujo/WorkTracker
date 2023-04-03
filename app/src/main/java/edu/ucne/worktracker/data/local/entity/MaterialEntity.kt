@@ -9,7 +9,7 @@ class MaterialEntity(
     @PrimaryKey(autoGenerate = true)
     val materialId: Int? =null,
     val duenoObra: String,
-    val fecha: DatePicker,
+    val fecha: String,
     val descripcion: String,
     val cantidad: Int?,
     val cantRetirada: Int?,

@@ -36,10 +36,10 @@ class MaterialViewModel @Inject constructor(
     var duenoObra by mutableStateOf("")
     var fecha by mutableStateOf("")
     var descripcion by mutableStateOf("")
-    var cantidad by mutableStateOf("")
-    var cantRetirada by mutableStateOf("")
+    var cantidad by mutableStateOf(0)
+    var cantRetirada by mutableStateOf(0)
     var suplidor by mutableStateOf("")
-    var precioUd by mutableStateOf("")
+    var precioUd by mutableStateOf(0.0)
 
     /* ESTADO DE LA LISTA */
     var listUiState = MutableStateFlow(MaterialListUiState())
@@ -109,12 +109,12 @@ class MaterialViewModel @Inject constructor(
                     /*ACTUALIZAR LOS CAMPOS QUE SE VISUALIZAN EN LA UI*/
 
                     duenoObra = uiState.value.material!!.duenoObra
-                    /*fecha= uiState.value.material!!.fecha*/
+                    fecha= uiState.value.material!!.fecha
                     descripcion = uiState.value.material!!.descripcion
-                    /* cantidad = uiState.value.material!!.catidad*/
-                    /* cantRetirada= uiState.value.material!!.cantRetirada*/
+                     cantidad = uiState.value.material!!.catidad
+                     cantRetirada= uiState.value.material!!.cantRetirada
                     suplidor = uiState.value.material!!.suplidor
-                    /*precioUd= uiState.value.material!!.precioUd*/
+                    precioUd= uiState.value.material!!.precioUd
 
                 }
                 is Resource.Error -> {
@@ -148,11 +148,9 @@ class MaterialViewModel @Inject constructor(
         duenoObra = ""
         fecha = ""
         descripcion = ""
-        cantidad = ""
-        cantRetirada = ""
+        cantidad = 0
+        cantRetirada = 0
         suplidor  = ""
-        precioUd = ""
+        precioUd = 0.0
     }
-
-    /*precioUd= uiState.value.material!!.precioUd*/
 }

@@ -5,7 +5,7 @@ import android.widget.DatePicker
 data class MaterialDto(
     val materialId: Int,
     val duenoObra: String,
-    val fecha: DatePicker,
+    val fecha: String,
     val descripcion: String,
     val catidad: Int,
     val cantRetirada: Int,
