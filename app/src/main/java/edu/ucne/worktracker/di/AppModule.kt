@@ -30,7 +30,7 @@ object AppModule {
             return Room.databaseBuilder(
                 context,
                 WorkTrackerDb::class.java,
-                "TePresto.db"
+                "WorkTrackerDb.db"
             )
                 .fallbackToDestructiveMigration()
                 .build()
