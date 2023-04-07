@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import dagger.hilt.android.AndroidEntryPoint
+import edu.ucne.worktracker.ui.navigation.NavigationGraph
 import edu.ucne.worktracker.ui.theme.WorkTrackerTheme
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -23,22 +24,10 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    NavigationGraph()
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    WorkTrackerTheme {
-        Greeting("Android")
-    }
-}
