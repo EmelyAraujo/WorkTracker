@@ -6,7 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import edu.ucne.worktracker.Util.Resource
-import edu.ucne.worktracker.data.Repository.MaterialRepositoy
+import edu.ucne.worktracker.data.repository.MaterialRepositoy
 import edu.ucne.worktracker.data.remote.dto.MaterialDto
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
