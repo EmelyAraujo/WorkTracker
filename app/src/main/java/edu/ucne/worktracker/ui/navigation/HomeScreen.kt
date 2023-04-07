@@ -24,7 +24,7 @@ fun HomeScreen(navController: NavHostController) {
 
     Column(Modifier.fillMaxSize()) {
         TopAppBar(
-            title = { Text("Te Presto") },
+            title = { Text("Inicio") },
             navigationIcon = {
                 IconButton(onClick = {expanded = true  }) {
                     Icon(Icons.Filled.Menu, contentDescription = null)
