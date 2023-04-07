@@ -1,17 +1,19 @@
 package edu.ucne.worktracker.data.repository
 
-import edu.ucne.worktracker.Util.Resource
-import edu.ucne.worktracker.data.remote.dto.MaterialDto
+import edu.ucne.worktracker.data.local.dao.MaterialDao
+import edu.ucne.worktracker.data.local.entity.MaterialEntity
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-interface MaterialRepository{
+class MaterialRepository @Inject constructor(
+    private val materialDao: MaterialDao
+) {
+    suspend fun insert(material: MaterialEntity) {
+        return materialDao.insert(material)
+    }
+    suspend fun delete(material: MaterialEntity) = materialDao.delete(material)
 
+    suspend fun find(materialId:Int) = materialDao.find(materialId)
 
-    fun getMaterial(): Flow<Resource<List<MaterialDto>>>
-
-    fun getMaterialById(id: Int): Flow<Resource<MaterialDto>>
-
-    suspend fun putMaterial(id: Int, materialDto: MaterialDto)
-
-    suspend fun deleteMaterial(id: Int)
+    fun getList(): Flow<List<MaterialEntity>> = materialDao.getList()
 }
