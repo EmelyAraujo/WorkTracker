@@ -28,7 +28,7 @@ import edu.ucne.worktracker.ui.obras.ObraScreen
 @Composable
 fun HomeScreen(
     navController: NavHostController,
-    onSaveClick: () -> Unit
+
 ) {
 
     var expanded by remember { mutableStateOf(false) }
@@ -103,10 +103,8 @@ fun NavigationGraph() {
         navController = navController,
         startDestination = Rutas.Home.ruta
     ){
-        composable(route = Rutas.Home.ruta){
-            HomeScreen(navController = navController){
-                navController.navigate(route = Rutas.Home.ruta)
-            }
+        composable(route = Rutas.Home.ruta) {
+            HomeScreen(navController = navController)
         }
         composable(route = Rutas.RegistroObra.ruta){
 

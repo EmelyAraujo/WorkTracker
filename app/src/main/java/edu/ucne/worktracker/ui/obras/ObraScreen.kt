@@ -107,7 +107,8 @@ fun DuenoObraBody(
                                 .size(35.dp)
                                 .clickable {
                                     scope.launch {
-                                        navController.navigate(route = Rutas.Home.ruta) {
+                                        navController.navigate("rutaHome") {
+                                            popUpTo("rutaHome")
                                         }
                                     }
                                 }
