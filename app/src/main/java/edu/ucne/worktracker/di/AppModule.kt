@@ -30,6 +30,9 @@ import javax.inject.Singleton
         @Singleton
         @Provides
         fun providesMaterialDao(db: WorkTrackerDb) = db.materialDao
+        @Singleton
+        @Provides
+        fun providesObraDao(db: WorkTrackerDb) = db.obraDao
 
         //  @Provides
         //   fun providesMoshi(): Moshi {

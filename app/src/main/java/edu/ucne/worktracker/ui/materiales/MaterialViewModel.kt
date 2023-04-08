@@ -23,7 +23,7 @@ data class MaterialUiState(
 class MaterialViewModel @Inject constructor(
     private val materialRepository: MaterialRepository
 ) : ViewModel() {
-    var duenoObra by mutableStateOf("")
+    var obraId by mutableStateOf("")
     var fecha by mutableStateOf("")
     var descripcion by mutableStateOf("")
     var cantidad by mutableStateOf("")
@@ -50,7 +50,7 @@ class MaterialViewModel @Inject constructor(
 
     fun insertar() {
         val material = MaterialEntity(
-            duenoObra = duenoObra,
+            obraId = obraId.toIntOrNull() ?: 0,
             fecha = fecha,
             descripcion = descripcion,
             cantidad = cantidad.toIntOrNull() ?: 0,
@@ -66,7 +66,7 @@ class MaterialViewModel @Inject constructor(
     }
 
     private fun Limpiar() {
-        duenoObra = ""
+        obraId = ""
         fecha = ""
         descripcion = ""
         cantidad = ""
