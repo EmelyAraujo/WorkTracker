@@ -23,7 +23,9 @@ class ObrasViewModel @Inject constructor(
     private val obraRepository: ObraRepository
 ) : ViewModel() {
     var duenoObra by mutableStateOf("")
+    var duenoObraError by mutableStateOf("")
 
+    var isDialogShown by mutableStateOf(false)
 
     var uiState = MutableStateFlow(ObrasUiState())
         private set
@@ -42,6 +44,22 @@ class ObrasViewModel @Inject constructor(
         }
     }
 
+    private fun hayError(): Boolean{
+        var hayError = true
+        duenoObraError=""
+        if(duenoObra.isNullOrBlank()){
+            duenoObraError = "Debe ingresar el dueño de la obra."
+            hayError = false
+        }
+
+        return hayError
+    }
+
+    fun onDuenoObraChanged(duenoObra: String){
+        this.duenoObra = duenoObra
+        hayError()
+    }
+
     fun insertar() {
         val obra = ObraEntity(
             duenoObra = duenoObra,
@@ -55,6 +73,12 @@ class ObrasViewModel @Inject constructor(
 
     private fun Limpiar() {
         duenoObra = ""
+    }
+
+
+
+    fun onDismissDialog(){
+        isDialogShown = false
     }
 
 }

@@ -1,33 +1,35 @@
 package edu.ucne.worktracker.ui.navigation
 
-import androidx.compose.foundation.background
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
-import androidx.compose.material3.AlertDialogDefaults.containerColor
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import edu.ucne.worktracker.R
+import edu.ucne.worktracker.ui.obras.ObraScreen
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(navController: NavHostController) {
+fun HomeScreen(
+    navController: NavHostController,
+    onSaveClick: () -> Unit
+) {
 
     var expanded by remember { mutableStateOf(false) }
 
@@ -44,11 +46,9 @@ fun HomeScreen(navController: NavHostController) {
                     onDismissRequest = { expanded = false })
                 {
                     DropdownMenuItem(
-                        text = { Text("Registro de Ocupaciones") },
+                        text = { Text("Registrar Obra") },
                         onClick = {
-                            navController.navigate(route = Rutas.OcupacionR.ruta ){
-                                popUpTo("rutaHome")
-                            }
+                            navController.navigate(route = Rutas.RegistroObra.ruta )
                         },
                         leadingIcon = {
                             Icon(
@@ -98,14 +98,19 @@ fun HomeScreen(navController: NavHostController) {
 
 @Composable
 fun NavigationGraph() {
-    val navController: NavHostController = rememberNavController()
-    NavHost(navController = navController, startDestination = Rutas.Home.ruta  ){
+    val navController = rememberNavController()
+    NavHost(
+        navController = navController,
+        startDestination = Rutas.Home.ruta
+    ){
         composable(route = Rutas.Home.ruta){
-            HomeScreen(navController)
+            HomeScreen(navController = navController){
+                navController.navigate(route = Rutas.Home.ruta)
+            }
         }
-        composable(route = Rutas.OcupacionR.ruta){
+        composable(route = Rutas.RegistroObra.ruta){
 
-            //OcupacionScreen()
+            ObraScreen()
         }
 
         composable(route = Rutas.PersonaR.ruta){
