@@ -108,11 +108,11 @@ fun HomeScreenBody(
         )
 
         val uiState by viewModel.uiState.collectAsState()
-        if (uiState.obrasList == null) {
-            ObraListScreen(uiState.obrasList)
+        if (uiState.obrasList.isNullOrEmpty()) {
+            BienvenidaScreen(navController = navController)
         } else {
-            //ObraListScreen(uiState.obrasList)
-            BienvenidaScreen(navController = navController, viewModel = viewModel)
+            ObraListScreen(uiState.obrasList, navController= navController)
+
         }
     }
 }
@@ -120,7 +120,7 @@ fun HomeScreenBody(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BienvenidaScreen(
-    viewModel: ObrasViewModel,
+
     navController: NavHostController
 ) {
     Column(
@@ -158,7 +158,7 @@ fun BienvenidaScreen(
         )
 
             FloatingActionButton(
-                onClick = { navController.navigate(route = Rutas.RegistroMaterial.ruta) },
+                onClick = { navController.navigate(route = Rutas.RegistroObra.ruta) },
                 containerColor = Color(0xFFFF6500),
                 modifier = Modifier.padding(300.dp,0.dp,0.dp, 20.dp),
 
@@ -178,24 +178,41 @@ fun BienvenidaScreen(
 
 
 @Composable
-fun ObraListScreen(obrasList: List<ObraEntity>) {
-    LazyColumn(
-        contentPadding = PaddingValues(
-            vertical = 8.dp,
-            horizontal = 16.dp
-        ),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        items(obrasList) { obra ->
-            ObraRow(obra)
+fun ObraListScreen(obrasList: List<ObraEntity>, navController: NavHostController) {
+    Column {
+        LazyColumn(
+            contentPadding = PaddingValues(
+                vertical = 8.dp,
+                horizontal = 16.dp
+            ),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(obrasList) { obra ->
+                ObraRow(obra)
 
+            }
+
+        }
+        FloatingActionButton(
+            onClick = { navController.navigate(route = Rutas.RegistroObra.ruta) },
+            containerColor = Color(0xFFFF6500),
+            modifier = Modifier.padding(300.dp,0.dp,0.dp, 20.dp),
+
+            ) {
+            Icon(Icons.Filled.Add,
+                tint = colorResource(id = R.color.white),
+                modifier =  Modifier
+                    .size(35.dp),
+                contentDescription = "Localized description")
         }
 
     }
 }
 
 @Composable
-fun ObraRow(obra: ObraEntity) {
+fun ObraRow(
+    obra: ObraEntity,
+) {
     //TODO Implementar swipe to delete
     Card(
         shape = RoundedCornerShape(1.dp),
@@ -220,6 +237,8 @@ fun ObraRow(obra: ObraEntity) {
                 )
             }
         }
+
+
     }
 
 }

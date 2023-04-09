@@ -12,7 +12,7 @@ import edu.ucne.worktracker.data.local.entity.ObraEntity
         MaterialEntity::class,
         ObraEntity::class
     ],
-    version = 2
+    version = 5
 )
 abstract  class WorkTrackerDb: RoomDatabase(){
     abstract val materialDao: MaterialDao

@@ -144,10 +144,11 @@ fun DuenoObraBody(
                     },
                     label = {
                         Text(
-                            text="Dueño de la obra",
+                            text = "Dueño de la obra",
                             color = colorResource(id = R.color.blueOpaco),
                             fontStyle = FontStyle.Normal
-                    ) },
+                        )
+                    },
                     singleLine = true,
                     isError = viewModel.duenoObraError.isNotBlank(),
                     trailingIcon = {
@@ -167,9 +168,12 @@ fun DuenoObraBody(
                 }
                 Row(modifier = Modifier.fillMaxWidth()) {
                     Button(
-                        onClick = { navController.navigate(route= Rutas.Home.ruta)
-                            onDismiss() },
-                        colors = ButtonDefaults.buttonColors(Color(0xFFFF6500),
+                        onClick = {
+                            navController.navigate(route = Rutas.Home.ruta)
+                            onDismiss()
+                        },
+                        colors = ButtonDefaults.buttonColors(
+                            Color(0xFFFF6500),
                             contentColor = Color.White
                         ),
                         modifier = Modifier
@@ -187,10 +191,11 @@ fun DuenoObraBody(
                     Button(
                         onClick = {
 
-                                    onConfirm()
-                                    navController.navigate(route= Rutas.Home.ruta)
-                                  },
-                        colors = ButtonDefaults.buttonColors(Color(0xFF004E98),
+                            onConfirm()
+                            navController.navigate(route = Rutas.Home.ruta)
+                        },
+                        colors = ButtonDefaults.buttonColors(
+                            Color(0xFF004E98),
                             contentColor = Color.White
                         ),
                         modifier = Modifier
@@ -206,14 +211,8 @@ fun DuenoObraBody(
 
                         )
                     }
-
-
-
                 }
-
             }
-
-
         }
     }
 }
