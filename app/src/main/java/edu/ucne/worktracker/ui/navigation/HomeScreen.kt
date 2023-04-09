@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -28,9 +29,13 @@ import edu.ucne.worktracker.ui.obras.ObraScreen
 @Composable
 fun HomeScreen(
     navController: NavHostController,
-
 ) {
+    HomeScreenBody(navController = navController)
+}
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun HomeScreenBody(navController: NavHostController) {
     var expanded by remember { mutableStateOf(false) }
 
     Column(Modifier.fillMaxSize()) {
@@ -38,8 +43,8 @@ fun HomeScreen(
             title = { Text("Inicio", color = Color.White, fontSize = 25.sp) },
             colors = TopAppBarDefaults.mediumTopAppBarColors(colorResource(id = R.color.blue)),
             navigationIcon = {
-                IconButton(onClick = {expanded = true  }) {
-                    Icon(Icons.Filled.Menu, tint = Color.White , contentDescription = null)
+                IconButton(onClick = { expanded = true }) {
+                    Icon(Icons.Filled.Menu, tint = Color.White, contentDescription = null)
                 }
                 DropdownMenu(
                     expanded = expanded,
@@ -48,7 +53,7 @@ fun HomeScreen(
                     DropdownMenuItem(
                         text = { Text("Registrar Obra") },
                         onClick = {
-                            navController.navigate(route = Rutas.RegistroObra.ruta )
+                            navController.navigate(route = Rutas.RegistroObra.ruta)
                         },
                         leadingIcon = {
                             Icon(
@@ -59,7 +64,7 @@ fun HomeScreen(
                     DropdownMenuItem(
                         text = { Text("Registro de Persona") },
                         onClick = {
-                            navController.navigate(route = Rutas.PersonaR.ruta ){
+                            navController.navigate(route = Rutas.PersonaR.ruta) {
                                 popUpTo("rutaHome")
 
                             }
@@ -77,7 +82,11 @@ fun HomeScreen(
             actions = {
                 // RowScope here, so these icons will be placed horizontally
                 IconButton(onClick = { /* doSomething() */ }) {
-                    Icon(Icons.Filled.ArrowBack, tint = Color.White,  contentDescription = "Localized description")
+                    Icon(
+                        Icons.Filled.ArrowBack,
+                        tint = Color.White,
+                        contentDescription = "Localized description"
+                    )
                 }
 
 
@@ -86,33 +95,14 @@ fun HomeScreen(
 
         LazyColumn(
 
-        ){
+        ) {
             //TODO Contenido de la aplicacion
         }
 
-
     }
 }
 
 
 
-@Composable
-fun NavigationGraph() {
-    val navController = rememberNavController()
-    NavHost(
-        navController = navController,
-        startDestination = Rutas.Home.ruta
-    ){
-        composable(route = Rutas.Home.ruta) {
-            HomeScreen(navController = navController)
-        }
-        composable(route = Rutas.RegistroObra.ruta){
 
-            ObraScreen()
-        }
 
-        composable(route = Rutas.PersonaR.ruta){
-           // PersonaScreen()
-        }
-    }
-}
