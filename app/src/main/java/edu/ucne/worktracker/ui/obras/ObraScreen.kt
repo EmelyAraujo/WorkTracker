@@ -186,7 +186,7 @@ fun DuenoObraBody(
                     }
                     Button(
                         onClick = {
-                                  viewModel.insertar()
+
                                     onConfirm()
                                     navController.navigate(route= Rutas.Home.ruta)
                                   },
