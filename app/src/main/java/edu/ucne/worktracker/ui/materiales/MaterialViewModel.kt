@@ -87,9 +87,6 @@ class MaterialViewModel @Inject constructor(
     }
 
 
-
-
-
     fun insertar() {
         val material = MaterialEntity(
             obraId = obraId.toIntOrNull() ?: 0,
@@ -116,9 +113,25 @@ class MaterialViewModel @Inject constructor(
         suplidor = ""
         precioUd= ""
     }
-
     fun onDismissDialog(){
         isDialogShown = false
+    }
+
+    fun Eliminar() {
+        val material = MaterialEntity(
+            obraId = obraId.toIntOrNull() ?: 0,
+            fecha = fecha,
+            descripcion = descripcion,
+            cantidad = cantidad.toIntOrNull() ?: 0,
+            cantRetirada = cantRetirada.toIntOrNull() ?: 0,
+            suplidor = suplidor,
+            precioUd = precioUd.toDoubleOrNull() ?: 0.0
+        )
+
+        viewModelScope.launch(Dispatchers.IO) {
+            materialRepository.delete(material)
+            Limpiar()
+        }
     }
 
 }
