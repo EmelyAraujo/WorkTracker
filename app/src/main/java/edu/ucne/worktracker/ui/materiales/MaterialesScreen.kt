@@ -5,8 +5,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Save
-import androidx.compose.material.icons.twotone.Error
-import androidx.compose.material.icons.twotone.Person
+import androidx.compose.material.icons.twotone.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -15,6 +14,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import dagger.hilt.android.lifecycle.HiltViewModel
 import edu.ucne.worktracker.R
@@ -46,7 +46,8 @@ fun MaterialesBody(
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
         TopAppBar(
-            title = { Text("Registro de materiales") },
+            title = { Text("Registro de materiales", color = Color.White, fontSize = 25.sp) },
+            colors = TopAppBarDefaults.mediumTopAppBarColors(colorResource(id = R.color.orange)),
             navigationIcon = {
                 IconButton(onClick = { navController.navigate("rutaHome") }) {
                     Icon(Icons.Filled.ArrowBack, contentDescription = null)
@@ -82,7 +83,7 @@ fun MaterialesBody(
                 if (viewModel.fechaError.isNotBlank()) {
                     Icon(
                         imageVector = Icons.TwoTone.Error,
-                        contentDescription = "Error en la fecha"
+                        contentDescription = "Ingrese  la fecha"
                     )
                 }
             }
@@ -102,7 +103,7 @@ fun MaterialesBody(
             onValueChange = viewModel::onMaterialesChanged,
             leadingIcon = {
                 Icon(
-                    imageVector = Icons.TwoTone.Person,
+                    imageVector = Icons.TwoTone.Description,
                     contentDescription = null,
                     tint = Color(0xFFFF6500),
                     modifier = Modifier
@@ -123,7 +124,7 @@ fun MaterialesBody(
                 if (viewModel.descripcionError.isNotBlank()) {
                     Icon(
                         imageVector = Icons.TwoTone.Error,
-                        contentDescription = "Error en la descripcion"
+                        contentDescription = "Ingrese la descripcion"
                     )
                 }
             }
@@ -142,7 +143,7 @@ fun MaterialesBody(
             onValueChange = viewModel::onMaterialesChanged,
             leadingIcon = {
                 Icon(
-                    imageVector = Icons.TwoTone.Person,
+                    imageVector = Icons.TwoTone.LibraryAdd,
                     contentDescription = null,
                     tint = Color(0xFFFF6500),
                     modifier = Modifier
@@ -163,7 +164,7 @@ fun MaterialesBody(
                 if (viewModel.cantidadError.isNotBlank()) {
                     Icon(
                         imageVector = Icons.TwoTone.Error,
-                        contentDescription = "Error en la cantidad"
+                        contentDescription = "Ingrese la cantidad"
                     )
                 }
             },
@@ -186,7 +187,7 @@ fun MaterialesBody(
             onValueChange = viewModel::onMaterialesChanged,
             leadingIcon = {
                 Icon(
-                    imageVector = Icons.TwoTone.Person,
+                    imageVector = Icons.TwoTone.LibraryAdd,
                     contentDescription = null,
                     tint = Color(0xFFFF6500),
                     modifier = Modifier
@@ -207,7 +208,7 @@ fun MaterialesBody(
                 if (viewModel.cantRetiradaError.isNotBlank()) {
                     Icon(
                         imageVector = Icons.TwoTone.Error,
-                        contentDescription = "Error en la cantidad Retirada"
+                        contentDescription = "Ingrese la cantidad Retirada"
                     )
                 }
             },
@@ -221,19 +222,98 @@ fun MaterialesBody(
                 color = MaterialTheme.colorScheme.error
             )
         }
-
+        OutlinedTextField(
+            modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth(),
+            value = viewModel.suplidor,
+            onValueChange = viewModel::onMaterialesChanged,
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.TwoTone.Description,
+                    contentDescription = null,
+                    tint = Color(0xFFFF6500),
+                    modifier = Modifier
+                        .size(45.dp)
+                        .padding(4.dp)
+                )
+            },
+            label = {
+                Text(
+                    text = "Suplidor",
+                    color = colorResource(id = R.color.blueOpaco),
+                    fontStyle = FontStyle.Normal
+                )
+            },
+            singleLine = true,
+            isError = viewModel.suplidorError.isNotBlank(),
+            trailingIcon = {
+                if (viewModel.suplidorError.isNotBlank()) {
+                    Icon(
+                        imageVector = Icons.TwoTone.Error,
+                        contentDescription = "Ingrese el suplidor"
+                    )
+                }
+            }
+        )
+        if (viewModel.suplidorError.isNotBlank()) {
+            Text(
+                text = viewModel.suplidorError,
+                color = MaterialTheme.colorScheme.error
+            )
+        }
+        OutlinedTextField(
+            modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth(),
+            value = viewModel.cantidad,
+            onValueChange = viewModel::onMaterialesChanged,
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.TwoTone.LibraryAdd,
+                    contentDescription = null,
+                    tint = Color(0xFFFF6500),
+                    modifier = Modifier
+                        .size(45.dp)
+                        .padding(4.dp)
+                )
+            },
+            label = {
+                Text(
+                    text = "Cantidad",
+                    color = colorResource(id = R.color.blueOpaco),
+                    fontStyle = FontStyle.Normal
+                )
+            },
+            singleLine = true,
+            isError = viewModel.cantidadError.isNotBlank(),
+            trailingIcon = {
+                if (viewModel.cantidadError.isNotBlank()) {
+                    Icon(
+                        imageVector = Icons.TwoTone.Error,
+                        contentDescription = "Ingrese la cantidad"
+                    )
+                }
+            },
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Decimal
+            )
+        )
+        if (viewModel.cantidadError.isNotBlank()) {
+            Text(
+                text = viewModel.cantidadError,
+                color = MaterialTheme.colorScheme.error
+            )
+        }
 
 
         ExtendedFloatingActionButton(
             modifier = Modifier
-                .padding(8.dp)
-                .fillMaxWidth(),
+                .padding(8.dp),
             text = { Text("Guardar") },
             icon = { Icon(imageVector = Icons.Filled.Save, contentDescription = "Save") },
             onClick = {
-                viewModel.insertar()
                 onConfirm()
-
             }
         )
     }

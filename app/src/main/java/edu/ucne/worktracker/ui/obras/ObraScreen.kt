@@ -14,6 +14,7 @@ import androidx.compose.material.icons.filled.Save
 import androidx.compose.material.icons.twotone.ArrowBack
 import androidx.compose.material.icons.twotone.Error
 import androidx.compose.material.icons.twotone.Person
+import androidx.compose.material.icons.twotone.PersonAddAlt
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.*
@@ -134,7 +135,7 @@ fun DuenoObraBody(
                     onValueChange = viewModel::onDuenoObraChanged,
                     leadingIcon = {
                         Icon(
-                            imageVector = Icons.TwoTone.Person,
+                            imageVector = Icons.TwoTone.PersonAddAlt,
                             contentDescription = null,
                             tint = Color(0xFFFF6500),
                             modifier = Modifier
