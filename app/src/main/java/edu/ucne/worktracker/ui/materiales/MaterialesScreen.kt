@@ -15,19 +15,19 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import dagger.hilt.android.lifecycle.HiltViewModel
 import edu.ucne.worktracker.R
 import edu.ucne.worktracker.ui.obras.ObrasViewModel
 
 @Composable
 fun MaterialesScreen(
-    viewModel: MaterialViewModel,
-    navController: NavHostController
+    navController: NavHostController,
+    viewModel: MaterialViewModel = hiltViewModel(),
 ) {
     Box(Modifier.fillMaxSize()) {
         MaterialesBody(
-            onDismiss = { viewModel.onDismissDialog() },
+            onDismiss = {viewModel.onDismissDialog()},
             onConfirm = { viewModel.insertar() },
             viewModel = viewModel,
             navController = navController
@@ -44,15 +44,17 @@ fun MaterialesBody(
     onDismiss: () -> Unit,
     onConfirm: () -> Unit
 ) {
+
     Column(modifier = Modifier.fillMaxWidth()) {
         TopAppBar(
             title = { Text("Registro de materiales", color = Color.White, fontSize = 25.sp) },
             colors = TopAppBarDefaults.mediumTopAppBarColors(colorResource(id = R.color.orange)),
             navigationIcon = {
                 IconButton(onClick = { navController.navigate("rutaHome") }) {
-                    Icon(Icons.Filled.ArrowBack, contentDescription = null)
+                    Icon(Icons.Filled.ArrowBack,tint = Color.White, contentDescription = null)
                 }
             },
+
         )
         OutlinedTextField(
             modifier = Modifier
@@ -91,6 +93,49 @@ fun MaterialesBody(
         if (viewModel.fechaError.isNotBlank()) {
             Text(
                 text = viewModel.fechaError,
+                color = MaterialTheme.colorScheme.error
+            )
+        }
+        OutlinedTextField(
+            modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth(),
+            value = viewModel.obraId,
+            onValueChange = viewModel::onMaterialesChanged,
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.TwoTone.LibraryAdd,
+                    contentDescription = null,
+                    tint = Color(0xFFFF6500),
+                    modifier = Modifier
+                        .size(45.dp)
+                        .padding(4.dp)
+                )
+            },
+            label = {
+                Text(
+                    text = "Obra Id",
+                    color = colorResource(id = R.color.blueOpaco),
+                    fontStyle = FontStyle.Normal
+                )
+            },
+            singleLine = true,
+            isError = viewModel.obraIdError.isNotBlank(),
+            trailingIcon = {
+                if (viewModel.obraIdError.isNotBlank()) {
+                    Icon(
+                        imageVector = Icons.TwoTone.Error,
+                        contentDescription = "Ingrese El id"
+                    )
+                }
+            },
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Decimal
+            )
+        )
+        if (viewModel.cantidadError.isNotBlank()) {
+            Text(
+                text = viewModel.cantidadError,
                 color = MaterialTheme.colorScheme.error
             )
         }
@@ -309,7 +354,7 @@ fun MaterialesBody(
 
         ExtendedFloatingActionButton(
             modifier = Modifier
-                .padding(8.dp),
+                .padding(30.dp),
             text = { Text("Guardar") },
             icon = { Icon(imageVector = Icons.Filled.Save, contentDescription = "Save") },
             onClick = {
