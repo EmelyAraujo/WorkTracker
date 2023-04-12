@@ -1,15 +1,22 @@
 package edu.ucne.worktracker.ui.materiales
 
+import android.app.DatePickerDialog
+import android.widget.DatePicker
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.material.icons.twotone.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.KeyboardType
@@ -19,6 +26,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import edu.ucne.worktracker.R
 import edu.ucne.worktracker.ui.obras.ObrasViewModel
+import java.util.*
 
 @Composable
 fun MaterialesScreen(
@@ -33,7 +41,6 @@ fun MaterialesScreen(
             navController = navController
         )
     }
-
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -56,12 +63,33 @@ fun MaterialesBody(
             },
 
         )
+
+
+        val anio:Int
+        val mes:Int
+        val dia:Int
+
+        val mCalendar = Calendar.getInstance()
+        anio = mCalendar.get(Calendar.YEAR)
+        mes = mCalendar.get(Calendar.MONTH)
+        dia = mCalendar.get(Calendar.DAY_OF_MONTH)
+
+        val mDatePickerDialog = DatePickerDialog(
+            LocalContext.current,
+            {
+                    _ : DatePicker, anio:Int, mes:Int, dia:Int ->
+                viewModel.fecha = "$dia/${mes+1}/$anio"
+            },anio,mes,dia
+        )
+
+
         OutlinedTextField(
             modifier = Modifier
                 .padding(8.dp)
                 .fillMaxWidth(),
             value = viewModel.fecha,
             onValueChange = viewModel::onMaterialesChanged,
+            readOnly = true,
             leadingIcon = {
                 Icon(
                     imageVector = Icons.TwoTone.Person,
@@ -70,6 +98,9 @@ fun MaterialesBody(
                     modifier = Modifier
                         .size(45.dp)
                         .padding(4.dp)
+                        .clickable{
+                        mDatePickerDialog.show()
+                    }
                 )
             },
             label = {
@@ -90,6 +121,8 @@ fun MaterialesBody(
                 }
             }
         )
+
+
         if (viewModel.fechaError.isNotBlank()) {
             Text(
                 text = viewModel.fechaError,

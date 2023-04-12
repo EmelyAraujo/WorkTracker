@@ -14,7 +14,7 @@ class MaterialRepositoryImp @Inject constructor(
 
     private val api: MaterialApi
 
-) : MaterialRepositoryApi {
+) : MaterialRepositoryApi{
 
     override fun getMaterial(): Flow<Resource<List<MaterialDto>>> = flow {
         try {

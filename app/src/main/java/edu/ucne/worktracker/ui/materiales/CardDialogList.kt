@@ -141,7 +141,6 @@ fun CardDialogList(
                             style = MaterialTheme.typography.labelMedium,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center
-
                         )
                     }
                 }

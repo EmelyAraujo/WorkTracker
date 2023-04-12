@@ -4,7 +4,7 @@ import edu.ucne.worktracker.Util.Resource
 import edu.ucne.worktracker.data.remote.dto.MaterialDto
 import kotlinx.coroutines.flow.Flow
 
- interface  MaterialRepositoryApi{
+ interface   MaterialRepositoryApi{
 
     fun getMaterial(): Flow<Resource<List<MaterialDto>>>
     fun getMaterialById(id: Int): Flow<Resource<MaterialDto>>
