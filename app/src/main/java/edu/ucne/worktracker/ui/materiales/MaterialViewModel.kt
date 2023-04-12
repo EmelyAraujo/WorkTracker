@@ -80,13 +80,10 @@ class MaterialViewModel @Inject constructor(
 
         return hayError
     }
-
     fun onMaterialesChanged(materiales: String){
         this.materiales = materiales
         hayError()
     }
-
-
     fun insertar() {
         val material = MaterialEntity(
             obraId = obraId.toIntOrNull() ?: 0,

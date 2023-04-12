@@ -1,21 +1,17 @@
-package edu.ucne.worktracker.ui.obras
+package edu.ucne.worktracker.ui.materiales
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.CircleShape
-
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-
 import androidx.compose.material.icons.twotone.ArrowBack
 import androidx.compose.material.icons.twotone.Error
 import androidx.compose.material.icons.twotone.PersonAddAlt
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.*
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -32,34 +28,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import edu.ucne.worktracker.R
 import edu.ucne.worktracker.ui.navigation.Rutas
+import edu.ucne.worktracker.ui.obras.ObrasViewModel
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn( ExperimentalComposeUiApi::class)
 @Composable
-fun ObraScreen(
-    viewModel: ObrasViewModel = hiltViewModel(),
-    navController: NavHostController,
-) {
-    Box(Modifier.fillMaxSize()) {
-
-        DuenoObraBody(
-            onDismiss = { viewModel.onDismissDialog() },
-            onConfirm = { viewModel.insertar() },
-            viewModel = viewModel,
-            navController = navController,
-
-        )
-
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
-@Composable
-fun DuenoObraBody(
-    viewModel: ObrasViewModel,
+fun CardDialogList(
     navController: NavHostController,
     onDismiss: () -> Unit,
-    onConfirm: () -> Unit,
 ) {
     val scope = rememberCoroutineScope()
 
@@ -115,7 +91,7 @@ fun DuenoObraBody(
                                 }
                         )
                         Text(
-                            text = "Registrar dueño de la obra",
+                            text = "A donde desea hacer?",
                             color = colorResource(id = R.color.blueOpaco),
                             fontSize = 25.sp,
                             fontStyle = FontStyle.Italic,
@@ -124,50 +100,11 @@ fun DuenoObraBody(
                     }
 
                 }
-                OutlinedTextField(
-                    modifier = Modifier
-                        .padding(8.dp)
-                        .fillMaxWidth(),
-                    value = viewModel.duenoObra,
-                    onValueChange = viewModel::onDuenoObraChanged,
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.TwoTone.PersonAddAlt,
-                            contentDescription = null,
-                            tint = Color(0xFFFF6500),
-                            modifier = Modifier
-                                .size(45.dp)
-                                .padding(4.dp)
-                        )
-                    },
-                    label = {
-                        Text(
-                            text = "Dueño de la obra",
-                            color = colorResource(id = R.color.blueOpaco),
-                            fontStyle = FontStyle.Normal
-                        )
-                    },
-                    singleLine = true,
-                    isError = viewModel.duenoObraError.isNotBlank(),
-                    trailingIcon = {
-                        if (viewModel.duenoObraError.isNotBlank()) {
-                            Icon(
-                                imageVector = Icons.TwoTone.Error,
-                                contentDescription = "Error en la descripcion"
-                            )
-                        }
-                    }
-                )
-                if (viewModel.duenoObraError.isNotBlank()) {
-                    Text(
-                        text = viewModel.duenoObraError,
-                        color = MaterialTheme.colorScheme.error
-                    )
-                }
+
                 Row(modifier = Modifier.fillMaxWidth()) {
                     Button(
                         onClick = {
-                            navController.navigate(route = Rutas.Home.ruta)
+                            navController.navigate(route = Rutas.RegistroMaterial.ruta)
                             onDismiss()
                         },
                         colors = ButtonDefaults.buttonColors(
@@ -180,7 +117,7 @@ fun DuenoObraBody(
                         shape = CircleShape
                     ) {
                         Text(
-                            text = "Eliminar",
+                            text = "Agregar materiales",
                             style = MaterialTheme.typography.labelMedium,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
@@ -188,9 +125,7 @@ fun DuenoObraBody(
                     }
                     Button(
                         onClick = {
-
-                            onConfirm()
-                            navController.navigate(route = Rutas.Home.ruta)
+                            navController.navigate(route = Rutas.MaterialesList.ruta)
                         },
                         colors = ButtonDefaults.buttonColors(
                             Color(0xFF004E98),
@@ -202,11 +137,10 @@ fun DuenoObraBody(
                         shape = CircleShape
                     ) {
                         Text(
-                            text = "Registrar",
+                            text = "Ver Lista",
                             style = MaterialTheme.typography.labelMedium,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center
-
                         )
                     }
                 }
@@ -214,7 +148,3 @@ fun DuenoObraBody(
         }
     }
 }
-
-
-
-

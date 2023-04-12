@@ -22,6 +22,8 @@ data class ObrasUiState(
 class ObrasViewModel @Inject constructor(
     private val obraRepository: ObraRepository
 ) : ViewModel() {
+    var obraId by mutableStateOf(0)
+
     var duenoObra by mutableStateOf("")
     var duenoObraError by mutableStateOf("")
 
@@ -63,6 +65,7 @@ class ObrasViewModel @Inject constructor(
     fun insertar() {
         val obra = ObraEntity(
             duenoObra = duenoObra,
+            obraId = obraId
         )
 
         viewModelScope.launch(Dispatchers.IO) {
