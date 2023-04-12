@@ -185,7 +185,7 @@ fun ObraListScreen(obrasList: List<ObraEntity>, navController: NavHostController
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(obrasList) { obra ->
-                ObraRow(obra)
+                ObraRow(obra, navController = navController)
 
             }
 
@@ -209,10 +209,11 @@ fun ObraListScreen(obrasList: List<ObraEntity>, navController: NavHostController
 @Composable
 fun ObraRow(
     obra: ObraEntity,
+    navController: NavHostController
 ) {
     //TODO Implementar swipe to delete
     Card(
-        modifier = Modifier.clickable {  },
+        modifier = Modifier.clickable {navController.navigate(route = Rutas.CardDialogListR.ruta) },
         shape = RoundedCornerShape(1.dp),
         colors = CardDefaults.elevatedCardColors(),
         elevation = CardDefaults.cardElevation(8.dp)

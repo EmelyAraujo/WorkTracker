@@ -23,15 +23,14 @@ fun NavigationGraph() {
             HomeScreen(navController = navController)
         }
         composable(
-            route = Rutas.RegistroObra.ruta + "/{id}",
+            route = Rutas.RegistroObra.ruta ,
         ) {
             ObraScreen(navController = navController)
 
         }
 
         composable(
-            route = Rutas.RegistroMaterial.ruta + "/{id}",
-            arguments = listOf(navArgument("id") { type = NavType.IntType })
+            route = Rutas.RegistroMaterial.ruta ,
         ) {
             MaterialesScreen(navController = navController)
         }

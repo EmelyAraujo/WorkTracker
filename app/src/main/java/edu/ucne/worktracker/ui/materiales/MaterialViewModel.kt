@@ -73,8 +73,32 @@ class MaterialViewModel @Inject constructor(
         cantRetiradaError = ""
         suplidorError = ""
         precioUdError = ""
-        if(materiales.isNullOrBlank()){
-            materiales = "Debe ingresar algun dato"
+        if(obraIdError.isNullOrBlank()){
+            obraIdError = "Debe ingresar algun dato"
+            hayError = false
+        }
+        if(fechaError.isNullOrBlank()){
+            fechaError = "Debe ingresar algun dato"
+            hayError = false
+        }
+        if(descripcionError.isNullOrBlank()){
+            descripcionError = "Debe ingresar algun dato"
+            hayError = false
+        }
+        if(cantidadError.isNullOrBlank()){
+            cantidadError = "Debe ingresar algun dato"
+            hayError = false
+        }
+        if(cantRetiradaError.isNullOrBlank()){
+            cantRetiradaError = "Debe ingresar algun dato"
+            hayError = false
+        }
+        if(suplidorError.isNullOrBlank()){
+            suplidorError = "Debe ingresar algun dato"
+            hayError = false
+        }
+        if(precioUdError.isNullOrBlank()){
+            precioUdError = "Debe ingresar algun dato"
             hayError = false
         }
 
@@ -89,13 +113,13 @@ class MaterialViewModel @Inject constructor(
 
     fun insertar() {
         val material = MaterialEntity(
-            obraId = obraId.toIntOrNull() ?: 0,
+            obraId = obraId.toInt(),
             fecha = fecha,
             descripcion = descripcion,
-            cantidad = cantidad.toIntOrNull() ?: 0,
-            cantRetirada = cantRetirada.toIntOrNull() ?: 0,
+            cantidad = cantidad.toInt(),
+            cantRetirada = cantRetirada.toInt() ,
             suplidor = suplidor,
-            precioUd = precioUd.toDoubleOrNull() ?: 0.0
+            precioUd = precioUd.toDouble()
         )
 
         viewModelScope.launch(Dispatchers.IO) {

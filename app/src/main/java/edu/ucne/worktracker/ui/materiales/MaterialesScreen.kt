@@ -8,6 +8,7 @@ import androidx.compose.material.icons.filled.Save
 import androidx.compose.material.icons.twotone.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
@@ -27,7 +28,7 @@ fun MaterialesScreen(
 ) {
     Box(Modifier.fillMaxSize()) {
         MaterialesBody(
-            onDismiss = {viewModel.onDismissDialog()},
+            onDismiss = { viewModel.onDismissDialog() },
             onConfirm = { viewModel.insertar() },
             viewModel = viewModel,
             navController = navController
@@ -51,11 +52,11 @@ fun MaterialesBody(
             colors = TopAppBarDefaults.mediumTopAppBarColors(colorResource(id = R.color.orange)),
             navigationIcon = {
                 IconButton(onClick = { navController.navigate("rutaHome") }) {
-                    Icon(Icons.Filled.ArrowBack,tint = Color.White, contentDescription = null)
+                    Icon(Icons.Filled.ArrowBack, tint = Color.White, contentDescription = null)
                 }
             },
 
-        )
+            )
         OutlinedTextField(
             modifier = Modifier
                 .padding(8.dp)
@@ -64,9 +65,9 @@ fun MaterialesBody(
             onValueChange = viewModel::onMaterialesChanged,
             leadingIcon = {
                 Icon(
-                    imageVector = Icons.TwoTone.Person,
+                    imageVector = Icons.TwoTone.CalendarMonth,
                     contentDescription = null,
-                    tint = Color(0xFFFF6500),
+                    tint = Color(0xFF004E98),
                     modifier = Modifier
                         .size(45.dp)
                         .padding(4.dp)
@@ -104,9 +105,9 @@ fun MaterialesBody(
             onValueChange = viewModel::onMaterialesChanged,
             leadingIcon = {
                 Icon(
-                    imageVector = Icons.TwoTone.LibraryAdd,
+                    imageVector = Icons.TwoTone.PermIdentity,
                     contentDescription = null,
-                    tint = Color(0xFFFF6500),
+                    tint = Color(0xFF004E98),
                     modifier = Modifier
                         .size(45.dp)
                         .padding(4.dp)
@@ -150,7 +151,7 @@ fun MaterialesBody(
                 Icon(
                     imageVector = Icons.TwoTone.Description,
                     contentDescription = null,
-                    tint = Color(0xFFFF6500),
+                    tint = Color(0xFF004E98),
                     modifier = Modifier
                         .size(45.dp)
                         .padding(4.dp)
@@ -190,7 +191,7 @@ fun MaterialesBody(
                 Icon(
                     imageVector = Icons.TwoTone.LibraryAdd,
                     contentDescription = null,
-                    tint = Color(0xFFFF6500),
+                    tint = Color(0xFF004E98),
                     modifier = Modifier
                         .size(45.dp)
                         .padding(4.dp)
@@ -277,7 +278,7 @@ fun MaterialesBody(
                 Icon(
                     imageVector = Icons.TwoTone.Description,
                     contentDescription = null,
-                    tint = Color(0xFFFF6500),
+                    tint = Color(0xFF004E98),
                     modifier = Modifier
                         .size(45.dp)
                         .padding(4.dp)
@@ -311,13 +312,13 @@ fun MaterialesBody(
             modifier = Modifier
                 .padding(8.dp)
                 .fillMaxWidth(),
-            value = viewModel.cantidad,
+            value = viewModel.precioUd,
             onValueChange = viewModel::onMaterialesChanged,
             leadingIcon = {
                 Icon(
-                    imageVector = Icons.TwoTone.LibraryAdd,
+                    imageVector = Icons.TwoTone.Money,
                     contentDescription = null,
-                    tint = Color(0xFFFF6500),
+                    tint = Color(0xFF004E98),
                     modifier = Modifier
                         .size(45.dp)
                         .padding(4.dp)
@@ -325,18 +326,18 @@ fun MaterialesBody(
             },
             label = {
                 Text(
-                    text = "Cantidad",
+                    text = "Precio",
                     color = colorResource(id = R.color.blueOpaco),
                     fontStyle = FontStyle.Normal
                 )
             },
             singleLine = true,
-            isError = viewModel.cantidadError.isNotBlank(),
+            isError = viewModel.precioUdError.isNotBlank(),
             trailingIcon = {
-                if (viewModel.cantidadError.isNotBlank()) {
+                if (viewModel.precioUdError.isNotBlank()) {
                     Icon(
                         imageVector = Icons.TwoTone.Error,
-                        contentDescription = "Ingrese la cantidad"
+                        contentDescription = "Ingrese el precio"
                     )
                 }
             },
@@ -354,9 +355,18 @@ fun MaterialesBody(
 
         ExtendedFloatingActionButton(
             modifier = Modifier
-                .padding(30.dp),
+                .padding(8.dp)
+                .align(alignment = Alignment.CenterHorizontally),
             text = { Text("Guardar") },
-            icon = { Icon(imageVector = Icons.Filled.Save, contentDescription = "Save") },
+            contentColor = Color.White,
+            containerColor = Color(0xFFFF6500),
+            icon = {
+                Icon(
+                    imageVector = Icons.Filled.Save,
+                    tint = colorResource(id = R.color.white),
+                    contentDescription = "Save"
+                )
+            },
             onClick = {
                 onConfirm()
             }

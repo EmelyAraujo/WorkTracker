@@ -7,7 +7,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.icons.outlined.People
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -16,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -32,22 +36,21 @@ fun ConsultaMaterialesScreen(
 ) {
     Column(Modifier.fillMaxSize()) {
         TopAppBar(
-            title = { Text("Consulta de Ocupaciones") },
-            navigationIcon = {
-                IconButton(onClick = { }) {
-                    Icon(Icons.Filled.ArrowBack, contentDescription = null)
-                }
-            },
-
-
+            title = { Text("Lista de Materiales", color = Color.White, fontSize = 25.sp) },
+            colors = TopAppBarDefaults.mediumTopAppBarColors(colorResource(id = R.color.blue)),
             actions = {
-                // RowScope here, so these icons will be placed horizontally
-                IconButton(onClick = { navController.navigate("Home") }) {
-                    Icon(Icons.Filled.Search, contentDescription = "Buscar")
+                IconButton(onClick = { navController.navigate(route= Rutas.CardDialogListR.ruta) }) {
+                    Icon(
+                        Icons.Filled.ArrowBack,
+                        tint = Color.White,
+                        contentDescription = "Localized description"
+                    )
                 }
+
 
             }
         )
+
         val uiState by viewModel.uiState.collectAsState()
         MaterialesListScreen(uiState.materialesList, navController =navController )
     }
@@ -70,7 +73,7 @@ fun MaterialesListScreen(materialList: List<MaterialEntity>, navController: NavH
 
         }
         FloatingActionButton(
-            onClick = { navController.navigate(route = Rutas.RegistroObra.ruta) },
+            onClick = { navController.navigate(route = Rutas.RegistroMaterial.ruta) },
             containerColor = Color(0xFFFF6500),
             modifier = Modifier.padding(300.dp,0.dp,0.dp, 20.dp),
 
